@@ -4,7 +4,7 @@
 # This only needs to be run once when the account is created.
 # The gcloud and gsutil cli tools should have already been setup
 
-PROJECT_ID="playground-s-11-120b47be"
+PROJECT_ID="playground-s-11-1f6534cf"
 DEFAULT_REGION="europe-west1"
 
 # Create cloud storage bucket for storing terraform state

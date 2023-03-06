@@ -7,7 +7,7 @@
 # Path to service account file
 SERVICE_ACCOUNT_KEYFILE_PATH="../.credentials/service_account.json"
 # GCP project
-PROJECT_ID="playground-s-11-120b47be"
+PROJECT_ID="playground-s-11-1f6534cf"
 DEFAULT_REGION="europe-west1"
 DEFAULT_ZONE="europe-west1-c"
 

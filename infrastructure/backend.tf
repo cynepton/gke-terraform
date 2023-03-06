@@ -5,8 +5,8 @@ terraform {
 
   # Define the configuration for the terraform state backend
   backend "gcs" {
-    bucket      = "playground-s-11-120b47be-tfstate"
-    prefix      = "prod/prod"
+    bucket      = "playground-s-11-1f6534cf-tfstate"
+    prefix      = "prod/tfstate"
     credentials = "../.credentials/service_account.json"
   }
 
