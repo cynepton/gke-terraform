@@ -1,0 +1,48 @@
+name: Setup GCP project for Terraform
+
+on:
+  workflow_dispatch:
+    inputs:
+      # Require the user to enter the project ID when the workflow is triggered
+      project_id:
+        description: 'The GCP project ID'
+        required: true
+        type: string
+      default_region:
+        description: 'The default region to use during setup'
+        required: true
+        type: choice
+        options: [
+          us-central1,
+          us-west1,
+          europe-west1
+        ]
+
+jobs:
+  setup-gcp-project:
+    runs-on: ubuntu-22.04
+
+    # Add "id-token" with the intended permissions.
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - id: 'gcp-auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+    
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: Run setup script
+      run: |
+        chmod +x scripts/01_initial_setup.sh
+        ./scripts/01_initial_setup.sh
+      shell: bash
