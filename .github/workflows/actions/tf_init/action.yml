@@ -15,5 +15,7 @@ runs:
         terraform_version: 1.3.9
 
     - name: Terraform Init
-      run: cd ${{ inputs.tf_directory }} && terraform init
+      run: |
+        echo $GOOGLE_APPLICATION_CREDENTIALS > .credentials/service_account.json
+        cd ${{ inputs.tf_directory }} && terraform init
       shell: bash
