@@ -1,0 +1,25 @@
+name: Init Terraform
+description: Install Terraform and run terraform init
+
+inputs:
+  tf_directory:
+    required: true
+    description: "The directory in the repository with containing the terraform root module."
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.3.9
+    
+    - id: 'gcp-auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+
+    - name: Terraform Init
+      run: cd {{inputs.tf_directory}} && terraform init
+      shell: bash

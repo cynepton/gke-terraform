@@ -1,0 +1,57 @@
+name: Terraform Setup Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Terraform Init
+        uses: ./.github/workflows/actions/tf_init
+        with:
+          tf_directory: infrastructure
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+        shell: bash
+
+      - name: Terraform validate
+        run:  terraform validate
+        shell: bash
+
+  plan:
+    runs-on: ubuntu-latest
+    needs: lint-validate
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Terraform Init
+        uses: ./.github/workflows/actions/tf_init
+        with:
+          tf_directory: infrastructure
+
+      - name: Terraform plan
+        run: terraform plan -var-file=../config/config.prod.tfvars
+
+  apply:
+    runs-on: ubuntu-latest
+    needs: plan
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Terraform Init
+        uses: ./.github/workflows/actions/tf_init
+        with:
+          tf_directory: infrastructure
+
+      - name: Terraform apply
+        run: terraform apply -var-file=../config/config.prod.tfvars -auto-approve

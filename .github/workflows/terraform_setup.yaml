@@ -13,9 +13,9 @@ on:
         required: true
         type: choice
         options: [
+          europe-west1,
           us-central1,
-          us-west1,
-          europe-west1
+          us-west1
         ]
 
 jobs:
