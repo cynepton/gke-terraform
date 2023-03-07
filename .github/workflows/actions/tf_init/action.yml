@@ -17,11 +17,11 @@ runs:
       with:
         terraform_version: 1.3.9
     
-    - id: 'gcp-auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        credentials_json: '${{ inputs.credentials_json }}'
+    - name: Create google auth credentials
+      run: |
+        echo ${{ inputs.credentials_json }} > sa.json
+        export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/sa.json
+      shell: bash
 
     - name: Terraform Init
       run: cd ${{ inputs.tf_directory }} && terraform init
