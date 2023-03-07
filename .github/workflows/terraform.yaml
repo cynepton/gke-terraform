@@ -16,7 +16,7 @@ jobs:
         uses: ./.github/workflows/actions/tf_init
         with:
           tf_directory: infrastructure
-          credentials_json: "{{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
+          credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
 
       - name: Terraform fmt
         run: terraform fmt -check -recursive
@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/workflows/actions/tf_init
         with:
           tf_directory: infrastructure
-          credentials_json: "{{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
+          credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
 
       - name: Terraform plan
         run: terraform plan -var-file=../config/config.prod.tfvars
@@ -54,7 +54,7 @@ jobs:
         uses: ./.github/workflows/actions/tf_init
         with:
           tf_directory: infrastructure
-          credentials_json: "{{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
+          credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
 
       - name: Terraform apply
         run: terraform apply -var-file=../config/config.prod.tfvars -auto-approve
