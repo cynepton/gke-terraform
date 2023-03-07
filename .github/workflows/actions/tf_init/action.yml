@@ -16,6 +16,7 @@ runs:
 
     - name: Terraform Init
       run: |
+        mkdir .credentials && ls -1
         echo $GOOGLE_APPLICATION_CREDENTIALS > .credentials/service_account.json
         cd ${{ inputs.tf_directory }} && terraform init
       shell: bash
