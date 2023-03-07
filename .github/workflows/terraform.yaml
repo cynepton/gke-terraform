@@ -41,7 +41,9 @@ jobs:
           tf_directory: infrastructure
 
       - name: Terraform plan
-        run: terraform plan -var-file=../config/config.prod.tfvars
+        run: |
+          ls -1
+          cd infrastructure && terraform plan -var-file=../config/config.prod.tfvars
 
   apply:
     runs-on: ubuntu-latest
@@ -57,4 +59,4 @@ jobs:
           tf_directory: infrastructure
 
       - name: Terraform apply
-        run: terraform apply -var-file=../config/config.prod.tfvars -auto-approve
+        run: cd infrastructure && terraform apply -var-file=../config/config.prod.tfvars -auto-approve
