@@ -5,6 +5,9 @@ inputs:
   tf_directory:
     required: true
     description: "The directory in the repository with containing the terraform root module."
+  credentials_json:
+    required: true
+    description: The credentials json file for the service account.
 
 runs:
   using: 'composite'
@@ -18,7 +21,7 @@ runs:
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v1'
       with:
-        credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+        credentials_json: '${{ inputs.credentials_json }}'
 
     - name: Terraform Init
       run: cd {{inputs.tf_directory}} && terraform init
