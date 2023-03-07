@@ -1,5 +1,5 @@
 # GCP configuration variables
-project = "playground-s-11-1f6534cf"
+project = "playground-s-11-9e97ce95"
 region  = "europe-west1"
 
 # GCP network configuration variables
