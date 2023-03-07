@@ -1,7 +1,7 @@
 # Provision the GKE cluster
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
 resource "google_container_cluster" "production" {
-  name        = "production_cluster"
+  name        = "production-cluster"
   location    = var.region
   description = "Managed by Terraform. Production kubernetes cluster."
 
@@ -17,7 +17,7 @@ resource "google_container_cluster" "production" {
 # Create a service account for the node pool
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_service_account
 resource "google_service_account" "apps_node_pool" {
-  account_id   = "apps_node_pool_sa"
+  account_id   = "apps-node-pool-sa"
   display_name = "Apps Node Pool Service Account"
   description  = "Managed by Terraform. Service Account for the apps node pool."
 }
